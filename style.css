@@ -1,0 +1,170 @@
+/* Look and feel of the page. Colors are the variables in :root, change them here. */
+:root {
+  --bg: #fbf6ef;
+  --card: #ffffff;
+  --ink: #2b2433;
+  --muted: #7a7184;
+  --line: #e8dfd2;
+  --accent: #1ea382;        /* highlight color: the big "30" and the countdown */
+  --accent-soft: #dffdf4;
+  --party: #1ea382;         /* party days (the birthday itself is solid, party 2 is soft) */
+  --party-soft: #dffdf7;
+  --plan: #e3b341;          /* normal days, where things happen / will be added */
+  --plan-soft: #fdf3d3;
+  --plan-ink: #7a5a0a;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+}
+.wrap { max-width: 1000px; margin: 0 auto; padding: 20px 16px 60px; }
+button:focus-visible { outline: 3px solid var(--party); outline-offset: 2px; }
+
+/* language flags */
+.topbar { display: flex; justify-content: flex-end; gap: 8px; }
+.lang button {
+  border: 2px solid transparent;
+  box-shadow: 0 0 0 1px var(--line);
+  background: var(--card);
+  padding: 5px 6px;
+  border-radius: 10px;
+  cursor: pointer;
+  line-height: 0;
+}
+.lang button svg { width: 30px; height: 20px; display: block; border-radius: 3px; }
+.lang button[aria-pressed="false"] { opacity: .55; }
+.lang button[aria-pressed="false"]:hover { opacity: 1; }
+.lang button[aria-pressed="true"] { border-color: var(--ink); }
+
+/* hero */
+.hero { text-align: center; padding: 28px 0 24px; }
+.hero .big { font-size: clamp(72px, 18vw, 140px); font-weight: 800; line-height: 1; color: var(--accent); margin: 0; }
+.hero h1 { margin: 6px 0 4px; font-size: clamp(22px, 5vw, 32px); }
+.hero .date { color: var(--muted); margin: 0; }
+.hero .countdown { display: inline-block; margin-top: 14px; padding: 6px 14px; background: var(--accent-soft); color: var(--accent); border-radius: 999px; font-weight: 600; font-size: 14px; }
+
+/* section heading */
+.section-head { margin: 22px 0 10px; }
+.section-head h2 { margin: 0; font-size: 20px; }
+
+/* day squares (one horizontal, scrollable row) */
+.days {
+  display: grid;            /* columns are set in app.js: one per day */
+  align-items: start;
+  column-gap: 10px;
+  row-gap: 8px;
+  overflow-x: auto;
+  padding: 4px 2px 12px;
+  scroll-snap-type: x proximity;
+}
+.day {
+  scroll-snap-align: start;
+  aspect-ratio: 1 / 1;
+  min-height: 104px;
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
+  display: flex; flex-direction: column; justify-content: space-between;
+  font: inherit; color: inherit;
+  transition: transform .12s, border-color .12s, box-shadow .12s;
+}
+.day:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,.07); }
+.day .wd { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.day .num { font-size: 34px; font-weight: 700; line-height: 1; }
+.day .tag { font-size: 12px; font-weight: 600; color: var(--party); }
+.day .arrow { align-self: flex-end; font-size: 14px; color: var(--muted); }
+.day.party { background: var(--party-soft); border-color: var(--party); }
+.day.birthday { background: var(--party); border-color: var(--party); color: #fff; }
+.day.birthday .wd, .day.birthday .tag, .day.birthday .arrow { color: rgba(255,255,255,.88); }
+.day[aria-expanded="true"] { box-shadow: 0 0 0 3px rgba(43,36,51,.15); }
+.day[aria-expanded="true"] .arrow { color: var(--ink); }
+.day.birthday[aria-expanded="true"] .arrow { color: #fff; }
+/* normal days: warm yellow */
+.day.plan { background: var(--plan-soft); border-color: var(--plan); }
+.day.plan .tag { color: var(--plan-ink); }
+/* flights and explore days: plain, they should fade into the background */
+.day.quiet { background: var(--card); border-color: var(--line); }
+.day.quiet .tag { color: var(--muted); }
+.day.locked {
+  background: #efeae2; border: 2px dashed var(--line); color: var(--muted);
+  cursor: not-allowed; opacity: .75;
+}
+.day.locked:hover { transform: none; box-shadow: none; }
+.day.locked .tag { color: var(--muted); }
+
+/* the "···" between days that are skipped */
+.gap {
+  align-self: center;
+  text-align: center;
+  color: var(--muted);
+  font-size: 24px;
+  letter-spacing: 2px;
+  user-select: none;
+}
+
+/* location band under the day squares (same grid, so it scrolls with them) */
+.loc {
+  align-self: stretch;
+  min-height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0,0,0,.35);
+}
+/* sticky: the name stays visible while you scroll through a long stay */
+.loc-label { position: sticky; left: 12px; padding: 0 12px; white-space: nowrap; }
+/* places with an info panel are buttons */
+.loc.clickable { border: 0; padding: 0; font: inherit; font-weight: 600; text-align: left; cursor: pointer; transition: filter .12s, box-shadow .12s; }
+.loc.clickable:hover { filter: brightness(1.12); }
+.loc[aria-expanded="true"] { box-shadow: 0 0 0 3px rgba(43,36,51,.25); }
+
+/* important notice under the title */
+.notice {
+  margin: 4px auto 0;
+  max-width: 640px;
+  text-align: center;
+  background: var(--plan-soft);
+  border: 2px solid var(--plan);
+  color: var(--plan-ink);
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* detail panel (opens under the row) */
+.panel {
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 6px;
+}
+.panel.party { border-color: var(--party); }
+.panel.plan { border-color: var(--plan); }
+.panel.quiet { border-color: var(--line); }
+.panel h3 { margin: 0 0 4px; font-size: 22px; }
+.panel .when { color: var(--muted); margin: 0 0 12px; }
+.panel dl { margin: 0 0 12px; display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; }
+.panel dt { color: var(--muted); }
+.panel dd { margin: 0; }
+.panel p { margin: 0; }
+.hint { color: var(--muted); font-size: 14px; margin: 8px 0 0; }
+
+/* place panel: photo and map side by side (stacked on narrow screens) */
+.panel.place h3 { margin-bottom: 14px; }
+.place-media { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-bottom: 8px; }
+.place-media img, .place-media iframe { display: block; width: 100%; height: 240px; border: 0; border-radius: 12px; object-fit: cover; background: #efeae2; }
+.panel h4 { margin: 16px 0 4px; font-size: 15px; color: var(--muted); }
+.place-link { display: inline-block; margin-top: 16px; font-weight: 600; color: var(--ink); }
+
+footer { margin-top: 40px; text-align: center; color: var(--muted); font-size: 13px; }
