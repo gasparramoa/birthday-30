@@ -17,6 +17,15 @@ const TIMELINE = [
 // Days that are locked: greyed out, cannot be opened. Example: ["2027-04-15"]
 const LOCKED = [];
 
+// People who confirmed they are coming (shown as a vertical list at the bottom of the page).
+//  name:  the name shown
+//  days:  which parties they will be at, e.g. ["2027-04-21"], ["2027-04-25"] or both
+//  photo: optional picture, e.g. "images/maria.jpg" (without it the first letter of the name is shown)
+// Copy a line, change it, and add it to the list. Example:
+//   { name: "Maria", days: ["2027-04-21", "2027-04-25"], photo: "" },
+const GUESTS = [
+];
+
 // Where I am: the colored band under the day squares (it scrolls together with them).
 //  from / to: first and last day (inclusive)
 //  name:      text shown on the band
@@ -109,6 +118,7 @@ const I18N = {
     notice: "⚠️ Aveiro hotel: please tell me by 31 December if you're coming",   // leave "" to hide
     stayTitle: "Where to stay", howTitle: "How to get there", openMap: "Open in Google Maps",
     scrollHint: "← Swipe or use the arrows to see more days →", prevDays: "Previous days", nextDays: "Next days",
+    guestsTitle: "Who is coming", guestsIntro: "Friends who already confirmed. Tell me you are coming and you will show up here!", guestsEmpty: "Nobody yet. Be the first to confirm and your name will be added here! 🎉",
   },
   pt: {
     locale: "pt-PT",
@@ -126,6 +136,7 @@ const I18N = {
     notice: "⚠️ Hotel em Aveiro: diz-me até 31 de dezembro se vens",
     stayTitle: "Onde ficar", howTitle: "Como chegar", openMap: "Abrir no Google Maps",
     scrollHint: "← Desliza ou usa as setas para ver mais dias →", prevDays: "Dias anteriores", nextDays: "Dias seguintes",
+    guestsTitle: "Quem vem", guestsIntro: "Amigos que já confirmaram. Diz-me que vens e apareces aqui!", guestsEmpty: "Ainda ninguém. Sê o primeiro a confirmar e o teu nome aparece aqui! 🎉",
   },
   de: {
     locale: "de-DE",
@@ -143,6 +154,7 @@ const I18N = {
     notice: "⚠️ Hotel in Aveiro: Sag mir bitte bis zum 31. Dezember, ob du kommst",
     stayTitle: "Übernachtung", howTitle: "Anreise", openMap: "In Google Maps öffnen",
     scrollHint: "← Wische oder nutze die Pfeile, um mehr Tage zu sehen →", prevDays: "Frühere Tage", nextDays: "Spätere Tage",
+    guestsTitle: "Wer kommt", guestsIntro: "Freunde, die schon zugesagt haben. Sag mir Bescheid, dass du kommst, und du erscheinst hier!", guestsEmpty: "Noch niemand. Sei der Erste, der zusagt, und dein Name erscheint hier! 🎉",
   },
 };
 

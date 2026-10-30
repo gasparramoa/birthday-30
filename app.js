@@ -76,6 +76,8 @@ function renderStatic() {
   $("daysPrev").setAttribute("aria-label", t.prevDays || "Previous days");
   $("daysNext").setAttribute("aria-label", t.nextDays || "Next days");
   $("footer").textContent = t.footer;
+  $("guestsTitle").textContent = t.guestsTitle || "";
+  $("guestsIntro").textContent = t.guestsIntro || "";
   document.querySelectorAll("#lang button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
 }
 
@@ -407,7 +409,51 @@ function renderPanel() {
   fillDayPanel(panel, selected);
 }
 
-function renderAll() { renderStatic(); renderDays(); renderPanel(); fitPanelSlot(); }
+// Confirmed guests: one card per person in GUESTS (content.js)
+function renderGuests() {
+  const t = I18N[lang];
+  const list = $("guestList");
+  list.innerHTML = "";
+  if (!GUESTS.length) {
+    const li = document.createElement("li");
+    li.className = "guest guest-empty";
+    li.textContent = t.guestsEmpty || "";
+    list.appendChild(li);
+    return;
+  }
+  GUESTS.forEach((g) => {
+    const li = document.createElement("li");
+    li.className = "guest";
+    let avatar;
+    if (g.photo) {
+      avatar = document.createElement("img");
+      avatar.src = g.photo;
+      avatar.alt = "";
+      avatar.addEventListener("error", () => { avatar.replaceWith(initial(g.name)); });
+    } else avatar = initial(g.name);
+    const name = document.createElement("div");
+    name.className = "guest-name";
+    name.textContent = g.name;
+    const days = document.createElement("div");
+    days.className = "guest-days";
+    (g.days || []).forEach((k) => {
+      const d = document.createElement("span");
+      d.className = "guest-day";
+      d.textContent = `${dateFromKey(k).getDate()} ${t.months[dateFromKey(k).getMonth()]}`;
+      days.appendChild(d);
+    });
+    li.append(avatar, name, days);
+    list.appendChild(li);
+  });
+  function initial(n) {
+    const a = document.createElement("div");
+    a.className = "guest-avatar";
+    a.textContent = (n || "?").trim().charAt(0).toUpperCase();
+    return a;
+  }
+}
+
+function renderAll() { renderStatic(); renderDays(); renderPanel(); renderGuests(); fitPanelSlot(); }
 
 document.querySelectorAll("#lang button").forEach((b) =>
   b.addEventListener("click", () => {
