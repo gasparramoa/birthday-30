@@ -57,6 +57,22 @@ const PLACES = {
     },
   },
 
+  "Porto": {
+    map: "Porto, Portugal",
+    zoom: 13,
+    photo: "images/Porto.jpg",
+    stay: {
+      en: "Stay close to the city centre, so you can walk to most of the places worth visiting in Porto. I am not sure yet if I will be there, but I might be nearby.",
+      pt: "Fiquem perto do centro da cidade, para poderem ir a pé à maior parte dos sítios que vale a pena visitar no Porto. Ainda não tenho a certeza se estarei lá, mas posso estar por perto.",
+      de: "Übernachtet am besten nah am Stadtzentrum, dann könnt ihr die meisten Sehenswürdigkeiten in Porto zu Fuß erreichen. Ich weiß noch nicht sicher, ob ich dort sein werde, aber vielleicht bin ich in der Nähe.",
+    },
+    how: {
+      en: "From the airport to the city there is a metro, which is quite simple. If you want, you can also come straight to Covilhã, it is only a suggestion :)",
+      pt: "Do aeroporto até à cidade há metro, é bastante simples. Se quiserem, também podem vir logo para a Covilhã, é só uma sugestão :)",
+      de: "Vom Flughafen in die Stadt fährt eine Metro, das ist ganz einfach. Wenn ihr wollt, könnt ihr auch direkt nach Covilhã kommen, das ist nur ein Vorschlag :)",
+    },
+  },
+
   "Aveiro": {
     map: "Aveiro, Portugal",
     zoom: 9,                                  // zoomed out, so you can see where Aveiro is in Portugal (13 = close up)
@@ -160,13 +176,31 @@ const EVENTS = {
     type: "party",
     tag:   { en: "Party 1", pt: "Festa 1", de: "Feier 1" },
     title: { en: "Birthday party #1", pt: "Festa de aniversário #1", de: "Geburtstagsfeier #1" },
-    when:  { en: "Afternoon (exact time to be announced)", pt: "Tarde (hora exata a anunciar)", de: "Nachmittag (genaue Uhrzeit folgt)" },
-    where: { en: "To be announced", pt: "A anunciar", de: "Wird noch bekannt gegeben" },
+    when:  { en: "Afternoon, from 6 pm", pt: "Tarde, a partir das 18h", de: "Nachmittag, ab 18 Uhr" },
+    where: { en: "At my house in Teixoso", pt: "Em minha casa, no Teixoso", de: "Bei mir zu Hause in Teixoso" },
     text:  {
       en: "The actual birthday! Come celebrate the big 3-0 with me.",
       pt: "O dia de anos a sério! Vem celebrar os 30 comigo.",
       de: "Der echte Geburtstag! Feiert mit mir den runden 30sten.",
     },
+    sections: [
+      {
+        title: { en: "The plan for the day", pt: "O plano para o dia", de: "Der Plan für den Tag" },
+        items: {
+          en: ["🌅 From 6 pm: the party starts at my house, with music, around sunset (if the weather is nice)", "🍲 We cook Portuguese food together (vegan too)", "🍹 Plenty of drinks and snacks", "🎲 Board games (A Aldeia, Werewolf) or even karaoke"],
+          pt: ["🌅 A partir das 18h: a festa começa em minha casa, com música, à hora do pôr do sol (se o tempo ajudar)", "🍲 Cozinhamos comida portuguesa juntos (também vegana)", "🍹 Muitas bebidas e petiscos", "🎲 Jogos de tabuleiro (A Aldeia, Lobisomem) ou até karaoke"],
+          de: ["🌅 Ab 18 Uhr: die Party startet bei mir zu Hause, mit Musik, zum Sonnenuntergang (wenn das Wetter mitspielt)", "🍲 Wir kochen zusammen portugiesisch (auch vegan)", "🍹 Jede Menge Getränke und Snacks", "🎲 Brettspiele (A Aldeia, Werwolf) oder sogar Karaoke"],
+        },
+      },
+      {
+        title: { en: "Relaxed vibe", pt: "Ambiente descontraído", de: "Entspannte Stimmung" },
+        text: {
+          en: "Nothing too heavy, since it is not a weekend, but we will have our fun! 🙂",
+          pt: "Nada de muito pesado, já que não é fim de semana, mas vamos divertir-nos à mesma! 🙂",
+          de: "Nichts allzu Wildes, da es kein Wochenende ist, aber Spaß werden wir trotzdem haben! 🙂",
+        },
+      },
+    ],
   },
   "2027-04-25": {
     type: "party",
@@ -174,7 +208,7 @@ const EVENTS = {
     tag:   { en: "Party 2", pt: "Festa 2", de: "Feier 2" },
     title: { en: "Birthday party #2", pt: "Festa de aniversário #2", de: "Geburtstagsfeier #2" },
     when:  { en: "Lunch at 2 pm", pt: "Almoço às 14h", de: "Mittagessen um 14 Uhr" },
-    where: { en: "To be announced", pt: "A anunciar", de: "Wird noch bekannt gegeben" },
+    where: { en: "Restaurant to be announced", pt: "Restaurante a anunciar", de: "Restaurant wird noch bekannt gegeben" },
     text:  {
       en: "A second party, so that everyone can join at least one. Can't make the 21st? Come on the 25th!",
       pt: "Uma segunda festa, para que todos possam vir a pelo menos uma. Não podes no dia 21? Vem no dia 25!",
