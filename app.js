@@ -72,6 +72,9 @@ function renderStatic() {
   $("notice").textContent = t.notice || "";
   $("notice").hidden = !t.notice;
   $("hint").textContent = t.hint;
+  $("scrollHint").textContent = t.scrollHint || "";
+  $("daysPrev").setAttribute("aria-label", t.prevDays || "Previous days");
+  $("daysNext").setAttribute("aria-label", t.nextDays || "Next days");
   $("footer").textContent = t.footer;
   document.querySelectorAll("#lang button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
 }
@@ -428,4 +431,30 @@ renderAll();
     const offset = sel.getBoundingClientRect().left - strip.getBoundingClientRect().left + strip.scrollLeft;
     strip.scrollLeft = offset - strip.clientWidth / 2 + sel.clientWidth / 2;
   }
+})();
+
+// Arrows, edge fades and hint for the day row: shown only when there is more to scroll to
+(function () {
+  const strip = $("days"), wrap = strip.parentElement, prev = $("daysPrev"), next = $("daysNext"), hint = $("scrollHint");
+  function update() {
+    const max = strip.scrollWidth - strip.clientWidth;
+    const canPrev = strip.scrollLeft > 4, canNext = strip.scrollLeft < max - 4;
+    prev.hidden = !canPrev;
+    next.hidden = !canNext;
+    wrap.classList.toggle("can-prev", canPrev);
+    wrap.classList.toggle("can-next", canNext);
+    if (max <= 4) hint.classList.add("gone");
+  }
+  const go = (dir) => strip.scrollBy({ left: dir * strip.clientWidth * 0.8, behavior: "smooth" });
+  prev.addEventListener("click", () => go(-1));
+  next.addEventListener("click", () => go(1));
+  let ready = false, startPos = 0;
+  strip.addEventListener("scroll", () => {
+    update();
+    // hide the hint once the visitor has scrolled (opacity only, so the page never jumps)
+    if (ready && Math.abs(strip.scrollLeft - startPos) > 24) hint.classList.add("gone");
+  }, { passive: true });
+  window.addEventListener("resize", update);
+  update();
+  setTimeout(() => { update(); startPos = strip.scrollLeft; ready = true; }, 300);
 })();

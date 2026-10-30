@@ -108,6 +108,7 @@ const I18N = {
     footer: "Made with love",
     notice: "⚠️ Aveiro hotel: please tell me by 31 December if you're coming",   // leave "" to hide
     stayTitle: "Where to stay", howTitle: "How to get there", openMap: "Open in Google Maps",
+    scrollHint: "← Swipe or use the arrows to see more days →", prevDays: "Previous days", nextDays: "Next days",
   },
   pt: {
     locale: "pt-PT",
@@ -124,6 +125,7 @@ const I18N = {
     footer: "Feito com carinho",
     notice: "⚠️ Hotel em Aveiro: diz-me até 31 de dezembro se vens",
     stayTitle: "Onde ficar", howTitle: "Como chegar", openMap: "Abrir no Google Maps",
+    scrollHint: "← Desliza ou usa as setas para ver mais dias →", prevDays: "Dias anteriores", nextDays: "Dias seguintes",
   },
   de: {
     locale: "de-DE",
@@ -140,6 +142,7 @@ const I18N = {
     footer: "Mit Liebe gemacht",
     notice: "⚠️ Hotel in Aveiro: Sag mir bitte bis zum 31. Dezember, ob du kommst",
     stayTitle: "Übernachtung", howTitle: "Anreise", openMap: "In Google Maps öffnen",
+    scrollHint: "← Wische oder nutze die Pfeile, um mehr Tage zu sehen →", prevDays: "Frühere Tage", nextDays: "Spätere Tage",
   },
 };
 
@@ -201,6 +204,18 @@ const EVENTS = {
         },
       },
     ],
+  },
+  "2027-04-23": {
+    type: "dinner",
+    icon: "🍽️",
+    tag:   { en: "Dinner", pt: "Jantar", de: "Abendessen" },
+    title: { en: "Dinner together", pt: "Jantar juntos", de: "Gemeinsames Abendessen" },
+    where: { en: "Restaurant to be announced", pt: "Restaurante a anunciar", de: "Restaurant wird noch bekannt gegeben" },
+    text:  {
+      en: "We will probably have dinner together in a nice restaurant. Think of it as a small extra party!",
+      pt: "Provavelmente vamos jantar todos juntos num bom restaurante. Vê isto como uma pequena festa extra!",
+      de: "Wir werden wahrscheinlich zusammen in einem schönen Restaurant zu Abend essen. Sozusagen eine kleine Extra-Party!",
+    },
   },
   "2027-04-25": {
     type: "party",

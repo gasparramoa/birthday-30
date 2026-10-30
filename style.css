@@ -99,6 +99,32 @@ button:focus-visible { outline: 3px solid var(--party); outline-offset: 2px; }
 .day.locked:hover { transform: none; box-shadow: none; }
 .day.locked .tag { color: var(--muted); }
 
+/* arrows, edge fades and a hint make it obvious that the row scrolls */
+.days-wrap { position: relative; }
+.days { scrollbar-width: thin; scrollbar-color: var(--muted) transparent; }
+.days-wrap::before, .days-wrap::after {
+  content: ""; position: absolute; top: 0; bottom: 12px; width: 56px; z-index: 1;
+  pointer-events: none; opacity: 0; transition: opacity .2s;
+}
+.days-wrap::before { left: 0;  background: linear-gradient(to right, var(--bg), rgba(251,246,239,0)); }
+.days-wrap::after  { right: 0; background: linear-gradient(to left,  var(--bg), rgba(251,246,239,0)); }
+.days-wrap.can-prev::before, .days-wrap.can-next::after { opacity: 1; }
+.days-nav {
+  position: absolute; top: 56px; z-index: 2;
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 2px solid var(--ink); background: var(--card); color: var(--ink);
+  font-size: 28px; line-height: 1; padding: 0 0 4px; cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,.18);
+}
+.days-nav[hidden] { display: none; }
+.days-nav:hover { background: var(--ink); color: #fff; }
+.days-nav.prev { left: 4px; }
+.days-nav.next { right: 4px; animation: nudge 1.4s ease-in-out 3; }
+@keyframes nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
+@media (prefers-reduced-motion: reduce) { .days-nav.next { animation: none; } }
+.scroll-hint { text-align: center; color: var(--muted); font-size: 14px; margin: 0 0 4px; transition: opacity .3s; }
+.scroll-hint.gone { opacity: 0; }
+
 /* the "···" between days that are skipped */
 .gap {
   align-self: center;

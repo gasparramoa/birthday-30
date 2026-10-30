@@ -56,7 +56,12 @@
     <h2 id="weekTitle"></h2>
   </div>
 
-  <div class="days" id="days"></div>
+  <div class="days-wrap">
+    <button class="days-nav prev" id="daysPrev" aria-label="Previous days" hidden>&#8249;</button>
+    <div class="days" id="days"></div>
+    <button class="days-nav next" id="daysNext" aria-label="Next days">&#8250;</button>
+  </div>
+  <p class="scroll-hint" id="scrollHint"></p>
   <!-- The slot keeps a fixed height, so opening or closing a panel never moves the page -->
   <div class="panel-slot">
     <div class="panel" id="panel" aria-live="polite"></div>
