@@ -66,6 +66,11 @@ const PLACES = {
       pt: "O plano é ficarmos juntos num hotel em Aveiro, essa é a prioridade. Quando souber quem vem, reservo um sítio para todos. Digam-me até 31 de dezembro, porque o fim de semana da maratona tem muita procura e os alojamentos esgotam depressa.",
       de: "Der Plan ist, gemeinsam in einem Hotel in Aveiro zu übernachten, das hat Priorität. Sobald ich weiß, wer kommt, buche ich eine Unterkunft für alle. Bitte sagt mir bis zum 31. Dezember Bescheid, denn am Marathon-Wochenende ist viel los und die Unterkünfte sind schnell ausgebucht.",
     },
+    how: {
+      en: "The closest big airport is Porto, about 1 hour from Aveiro by train or car. From Lisbon it is around 3 hours. More details will follow.",
+      pt: "O aeroporto grande mais próximo é o do Porto, a cerca de 1 hora de Aveiro de comboio ou de carro. De Lisboa são cerca de 3 horas. Mais detalhes em breve.",
+      de: "Der nächste große Flughafen ist Porto, etwa 1 Stunde von Aveiro entfernt, mit dem Zug oder dem Auto. Von Lissabon sind es etwa 3 Stunden. Weitere Details folgen.",
+    },
   },
 };
 
@@ -168,7 +173,7 @@ const EVENTS = {
     icon: "🏃",
     tag:   { en: "Party 2", pt: "Festa 2", de: "Feier 2" },
     title: { en: "Birthday party #2", pt: "Festa de aniversário #2", de: "Geburtstagsfeier #2" },
-    when:  { en: "Afternoon (exact time to be announced)", pt: "Tarde (hora exata a anunciar)", de: "Nachmittag (genaue Uhrzeit folgt)" },
+    when:  { en: "Lunch at 2 pm", pt: "Almoço às 14h", de: "Mittagessen um 14 Uhr" },
     where: { en: "To be announced", pt: "A anunciar", de: "Wird noch bekannt gegeben" },
     text:  {
       en: "A second party, so that everyone can join at least one. Can't make the 21st? Come on the 25th!",
@@ -181,9 +186,9 @@ const EVENTS = {
       {
         title: { en: "The plan for the day", pt: "O plano para o dia", de: "Der Plan für den Tag" },
         items: {
-          en: ["🏃 Morning: the Europe Marathon", "🥪 A short lunch together", "🏛️ Afternoon: we visit the city", "🍽️ Evening: dinner in a nice Portuguese restaurant"],
-          pt: ["🏃 Manhã: a Maratona da Europa", "🥪 Um almoço rápido todos juntos", "🏛️ Tarde: visitamos a cidade", "🍽️ Noite: jantar num bom restaurante português"],
-          de: ["🏃 Vormittag: der Europe Marathon", "🥪 Ein kurzes gemeinsames Mittagessen", "🏛️ Nachmittag: wir besichtigen die Stadt", "🍽️ Abend: Abendessen in einem schönen portugiesischen Restaurant"],
+          en: ["🏃 Morning: the Europe Marathon", "🥪 2 pm: a short lunch together", "🏛️ Afternoon: we visit the city", "🍽️ Evening: dinner in a nice Portuguese restaurant"],
+          pt: ["🏃 Manhã: a Maratona da Europa", "🥪 14h: um almoço rápido todos juntos", "🏛️ Tarde: visitamos a cidade", "🍽️ Noite: jantar num bom restaurante português"],
+          de: ["🏃 Vormittag: der Europe Marathon", "🥪 14 Uhr: ein kurzes gemeinsames Mittagessen", "🏛️ Nachmittag: wir besichtigen die Stadt", "🍽️ Abend: Abendessen in einem schönen portugiesischen Restaurant"],
         },
       },
       {
