@@ -57,7 +57,10 @@
   </div>
 
   <div class="days" id="days"></div>
-  <div class="panel" id="panel" aria-live="polite"></div>
+  <!-- The slot keeps a fixed height, so opening or closing a panel never moves the page -->
+  <div class="panel-slot">
+    <div class="panel" id="panel" aria-live="polite"></div>
+  </div>
   <p class="hint" id="hint"></p>
 
   <footer id="footer"></footer>
