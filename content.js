@@ -39,6 +39,7 @@ const LOCATIONS = [
 //  map:   what Google Maps should show (a village or town is enough; no exact address needed)
 //  photo: optional landscape picture; if left out, the picture of the place in LOCATIONS is used
 //  stay / how: texts per language ("Where to stay" and "How to get there")
+//  zoom: map zoom (9 = see where it is in Portugal, 13 = close up). sections / links: extra text blocks and buttons, like in the 25 April event below.
 // PLACEHOLDER texts, edit them.
 const PLACES = {
   "Covilhã": {
@@ -53,6 +54,17 @@ const PLACES = {
       en: "The closest big airports are Lisbon and Porto, around 3 hours from Covilhã by car. You can also come by bus or train. It is also possible for me to pick you up by car at the airport. More details will follow.",
       pt: "Tu és tuga, não precisas de saber isto :p",
       de: "Die nächsten großen Flughäfen sind Lissabon und Porto, etwa 3 Stunden mit dem Auto von Covilhã entfernt. Man kann auch mit Bus oder Zug kommen. Notfalls kann ich euch mit dem Auto am Flughafen abholen. Weitere Details folgen.",
+    },
+  },
+
+  "Aveiro": {
+    map: "Aveiro, Portugal",
+    zoom: 9,                                  // zoomed out, so you can see where Aveiro is in Portugal (13 = close up)
+    // photo: "images/aveiro.jpg",            // optional: your own picture; if left out, the Aveiro picture of the band is used
+    stay: {
+      en: "The plan is to stay together in a hotel in Aveiro, that is the priority. Once I know who is coming, I will book a place for everyone. Please tell me by 31 December, because the marathon weekend gets busy and places fill up fast.",
+      pt: "O plano é ficarmos juntos num hotel em Aveiro, essa é a prioridade. Quando souber quem vem, reservo um sítio para todos. Digam-me até 31 de dezembro, porque o fim de semana da maratona tem muita procura e os alojamentos esgotam depressa.",
+      de: "Der Plan ist, gemeinsam in einem Hotel in Aveiro zu übernachten, das hat Priorität. Sobald ich weiß, wer kommt, buche ich eine Unterkunft für alle. Bitte sagt mir bis zum 31. Dezember Bescheid, denn am Marathon-Wochenende ist viel los und die Unterkünfte sind schnell ausgebucht.",
     },
   },
 };
@@ -163,6 +175,31 @@ const EVENTS = {
       pt: "Uma segunda festa, para que todos possam vir a pelo menos uma. Não podes no dia 21? Vem no dia 25!",
       de: "Eine zweite Feier, damit alle bei mindestens einer dabei sein können. Am 21. keine Zeit? Dann komm am 25.!",
     },
+    // photo: "images/aveiro-marathon.jpg",   // optional: your marathon picture with the boats, shown at the top
+    // More blocks, shown in this order. Each has a title and either "text" or a list "items".
+    sections: [
+      {
+        title: { en: "The plan for the day", pt: "O plano para o dia", de: "Der Plan für den Tag" },
+        items: {
+          en: ["🏃 Morning: the Europe Marathon", "🥪 A short lunch together", "🏛️ Afternoon: we visit the city", "🍽️ Evening: dinner in a nice Portuguese restaurant"],
+          pt: ["🏃 Manhã: a Maratona da Europa", "🥪 Um almoço rápido todos juntos", "🏛️ Tarde: visitamos a cidade", "🍽️ Noite: jantar num bom restaurante português"],
+          de: ["🏃 Vormittag: der Europe Marathon", "🥪 Ein kurzes gemeinsames Mittagessen", "🏛️ Nachmittag: wir besichtigen die Stadt", "🍽️ Abend: Abendessen in einem schönen portugiesischen Restaurant"],
+        },
+      },
+      {
+        title: { en: "Run with me!", pt: "Corram comigo!", de: "Lauft mit mir!" },
+        text: {
+          en: "I would love for you to join the race! There is a marathon, a half marathon and a 5 km walk. If running is not your thing, that's okay too: cheering along the route is always a great help.",
+          pt: "Gostava muito que participassem na corrida! Há maratona, meia maratona e caminhada de 5 km. Mas também é ok se ficarem a apoiar, é sempre uma boa ajuda.",
+          de: "Ich würde mich sehr freuen, wenn ihr mitlauft! Es gibt einen Marathon, einen Halbmarathon und einen 5-km-Walk. Wer nicht laufen möchte, kann mich natürlich auch anfeuern, das hilft immer.",
+        },
+      },
+    ],
+    // Buttons under the text
+    links: [
+      { label: { en: "Marathon website", pt: "Site da maratona", de: "Webseite des Marathons" }, url: "https://europemarathon.eu/en" },
+      { label: { en: "Sign up for the race", pt: "Inscrever-me na corrida", de: "Für das Rennen anmelden" }, url: "https://app.globalsport.pt/eventos/maratona-da-europa-2027" },
+    ],
   },
   "2027-04-26": {
     type: "note",

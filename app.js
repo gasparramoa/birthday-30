@@ -191,75 +191,161 @@ function renderDays() {
   }
 }
 
-// Panel for a place: photo + Google map side by side, then where to stay and how to get there
-function renderPlacePanel() {
+// Text blocks (a small title, then a list and/or a paragraph). Used in place panels and day panels.
+function appendBlocks(panel, blocks) {
+  for (const b of blocks) {
+    const h4 = document.createElement("h4");
+    h4.textContent = b.title;
+    panel.appendChild(h4);
+    if (b.items) {
+      const ul = document.createElement("ul");
+      ul.className = "place-list";
+      (b.items[lang] || []).forEach((line) => {
+        const li = document.createElement("li");
+        li.textContent = line;
+        ul.appendChild(li);
+      });
+      panel.appendChild(ul);
+    }
+    if (b.text) {
+      const p = document.createElement("p");
+      p.textContent = b.text[lang];
+      panel.appendChild(p);
+    }
+  }
+}
+
+// "sections" from content.js -> blocks in the current language
+function sectionBlocks(sections) {
+  return (sections || []).map((s) => ({ title: s.title[lang], text: s.text, items: s.items }));
+}
+
+// Link buttons. "extra" is one more finished link element added at the end (e.g. the Google Maps link).
+function appendLinks(panel, links, extra) {
+  const wrap = document.createElement("div");
+  wrap.className = "place-links";
+  (links || []).forEach((l) => {
+    const a = document.createElement("a");
+    a.className = "place-link";
+    a.href = l.url;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.textContent = "🔗 " + l.label[lang];
+    wrap.appendChild(a);
+  });
+  if (extra) wrap.appendChild(extra);
+  if (wrap.children.length) panel.appendChild(wrap);
+}
+
+// Builds the content of a place panel into "panel".
+// measure = true: nothing is loaded, grey boxes of the same size stand in for photo and map
+// (only used to measure how tall the panel gets, see fitPanelSlot)
+function fillPlacePanel(panel, name, measure) {
   const t = I18N[lang];
-  const panel = $("panel");
-  const name = selectedPlace;
   const place = PLACES[name];
   const loc = LOCATIONS.find((l) => l.name === name);
-
-  panel.hidden = false;
-  panel.className = "panel place";
-  panel.style.borderColor = loc ? loc.color : "";
-  panel.innerHTML = "";
 
   const h = document.createElement("h3");
   h.textContent = "📍 " + name;
   panel.appendChild(h);
 
+  // photo and map side by side
   const media = document.createElement("div");
   media.className = "place-media";
   const src = place.photo || (loc && loc.image);
+  const fallback = loc && loc.image && loc.image !== src ? loc.image : null;
   if (src) {
-    const img = document.createElement("img");
-    img.alt = name;
-    img.src = src;
-    img.addEventListener("error", () => img.remove());   // missing file: just show the map
-    media.appendChild(img);
+    if (measure) {
+      const box = document.createElement("div");
+      box.className = "ph";
+      media.appendChild(box);
+    } else {
+      const img = document.createElement("img");
+      img.alt = name;
+      img.src = src;
+      img.addEventListener("error", () => {
+        if (fallback && img.getAttribute("src") !== fallback) img.src = fallback;   // your picture is missing: use the band picture
+        else img.remove();                                                          // nothing to show: just the map
+      });
+      media.appendChild(img);
+    }
   }
   const query = encodeURIComponent(place.map || name);
-  const frame = document.createElement("iframe");
-  frame.src = `https://maps.google.com/maps?q=${query}&z=13&output=embed`;
-  frame.title = name;
-  frame.loading = "lazy";
-  frame.referrerPolicy = "no-referrer-when-downgrade";
-  media.appendChild(frame);
+  if (measure) {
+    const box = document.createElement("div");
+    box.className = "ph";
+    media.appendChild(box);
+  } else {
+    const frame = document.createElement("iframe");
+    frame.src = `https://maps.google.com/maps?q=${query}&z=${place.zoom || 13}&output=embed`;
+    frame.title = name;
+    frame.loading = "lazy";
+    frame.referrerPolicy = "no-referrer-when-downgrade";
+    media.appendChild(frame);
+  }
   panel.appendChild(media);
 
-  const sections = [[t.stayTitle, place.stay], [t.howTitle, place.how]];
-  for (const [title, text] of sections) {
-    if (!text) continue;
-    const h4 = document.createElement("h4");
-    h4.textContent = title;
-    const p = document.createElement("p");
-    p.textContent = text[lang];
-    panel.append(h4, p);
-  }
+  // text blocks: "stay" and "how" first (if present), then the "sections" list
+  const blocks = [];
+  if (place.stay) blocks.push({ title: t.stayTitle, text: place.stay });
+  if (place.how) blocks.push({ title: t.howTitle, text: place.how });
+  sectionBlocks(place.sections).forEach((blk) => blocks.push(blk));
+  appendBlocks(panel, blocks);
 
-  const link = document.createElement("a");
-  link.className = "place-link";
-  link.href = `https://www.google.com/maps/search/?api=1&query=${query}`;
-  link.target = "_blank";
-  link.rel = "noopener";
-  link.textContent = "📍 " + t.openMap;
-  panel.appendChild(link);
+  // links: your own (optional) and the Google Maps link
+  const mapLink = document.createElement("a");
+  mapLink.className = "place-link";
+  mapLink.href = `https://www.google.com/maps/search/?api=1&query=${query}`;
+  mapLink.target = "_blank";
+  mapLink.rel = "noopener";
+  mapLink.textContent = "📍 " + t.openMap;
+  appendLinks(panel, place.links, mapLink);
 }
 
-function renderPanel() {
-  const t = I18N[lang];
+// Panel for a place: photo + Google map side by side, then the text blocks
+function renderPlacePanel() {
   const panel = $("panel");
-  panel.style.borderColor = "";
-  if (selectedPlace && PLACES[selectedPlace]) { renderPlacePanel(); return; }
-  if (!selected) { panel.hidden = true; return; }
+  const loc = LOCATIONS.find((l) => l.name === selectedPlace);
   panel.hidden = false;
-
-  const date = dateFromKey(selected);
-  const longDate = new Intl.DateTimeFormat(t.locale, { weekday: "long", day: "numeric", month: "long", year: "numeric" }).format(date);
-  const ev = EVENTS[selected];
-
-  panel.className = "panel " + kindOf(ev);
+  panel.className = "panel place";
+  panel.style.borderColor = loc ? loc.color : "";
   panel.innerHTML = "";
+  fillPlacePanel(panel, selectedPlace, false);
+}
+
+// Keeps the area under the days as tall as the tallest panel (every place and every day, in the current
+// language and screen width), so opening and closing a panel never moves the rest of the page.
+function fitPanelSlot() {
+  const slot = document.querySelector(".panel-slot");
+  const probe = document.createElement("div");
+  probe.setAttribute("aria-hidden", "true");
+  probe.style.cssText = "position:absolute;left:0;right:0;top:0;visibility:hidden;pointer-events:none;";
+  slot.appendChild(probe);
+  let tallest = 0;
+  const measure = () => { tallest = Math.max(tallest, probe.offsetHeight); };
+  for (const name of Object.keys(PLACES)) {
+    probe.className = "panel place";
+    probe.innerHTML = "";
+    fillPlacePanel(probe, name, true);
+    measure();
+  }
+  for (const key of buildTimeline()) {
+    if (key === "gap") continue;
+    probe.className = "panel " + kindOf(EVENTS[key]);
+    probe.innerHTML = "";
+    fillDayPanel(probe, key, true);
+    measure();
+  }
+  probe.remove();
+  if (tallest) slot.style.minHeight = (tallest + 6 + 4) + "px";   // +6 = the panel's top margin
+}
+
+// Builds the content of a day panel into "panel" (key = "2027-04-25"). measure = true: grey box instead of the photo.
+function fillDayPanel(panel, key, measure) {
+  const t = I18N[lang];
+  const date = dateFromKey(key);
+  const longDate = new Intl.DateTimeFormat(t.locale, { weekday: "long", day: "numeric", month: "long", year: "numeric" }).format(date);
+  const ev = EVENTS[key];
 
   const h = document.createElement("h3");
   h.textContent = ev ? ev.title[lang] : t.emptyTitle;
@@ -267,6 +353,18 @@ function renderPanel() {
   when.className = "when";
   when.textContent = longDate;
   panel.append(h, when);
+
+  // optional photo for the day (see "photo" in the 25 April event)
+  if (ev && ev.photo) {
+    const pic = document.createElement(measure ? "div" : "img");
+    pic.className = "event-photo";
+    if (!measure) {
+      pic.alt = ev.title[lang];
+      pic.src = ev.photo;
+      pic.addEventListener("error", () => pic.remove());   // missing file: no photo
+    }
+    panel.appendChild(pic);
+  }
 
   if (ev && (ev.when || ev.where)) {
     const dl = document.createElement("dl");
@@ -283,12 +381,30 @@ function renderPanel() {
     panel.appendChild(dl);
   }
 
-  const p = document.createElement("p");
-  p.textContent = ev ? ev.text[lang] : t.emptyText;
-  panel.appendChild(p);
+  if (!ev || ev.text) {
+    const p = document.createElement("p");
+    p.textContent = ev ? ev.text[lang] : t.emptyText;
+    panel.appendChild(p);
+  }
+
+  if (ev) {
+    appendBlocks(panel, sectionBlocks(ev.sections));   // optional extra blocks (see the 25 April event)
+    appendLinks(panel, ev.links);                      // optional link buttons
+  }
 }
 
-function renderAll() { renderStatic(); renderDays(); renderPanel(); }
+function renderPanel() {
+  const panel = $("panel");
+  panel.style.borderColor = "";
+  if (selectedPlace && PLACES[selectedPlace]) { renderPlacePanel(); return; }
+  if (!selected) { panel.hidden = true; return; }
+  panel.hidden = false;
+  panel.className = "panel " + kindOf(EVENTS[selected]);
+  panel.innerHTML = "";
+  fillDayPanel(panel, selected);
+}
+
+function renderAll() { renderStatic(); renderDays(); renderPanel(); fitPanelSlot(); }
 
 document.querySelectorAll("#lang button").forEach((b) =>
   b.addEventListener("click", () => {
@@ -297,6 +413,9 @@ document.querySelectorAll("#lang button").forEach((b) =>
     renderAll();
   })
 );
+
+let resizeTimer;
+window.addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(fitPanelSlot, 120); });
 
 lang = pickLang();
 renderAll();

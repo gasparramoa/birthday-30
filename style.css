@@ -160,21 +160,24 @@ button:focus-visible { outline: 3px solid var(--party); outline-offset: 2px; }
 .panel p { margin: 0; }
 .hint { color: var(--muted); font-size: 14px; margin: 8px 0 0; }
 
-/* The area under the days always keeps the height of the tallest panel (a place panel),
-   so opening and closing panels never moves the rest of the page.
-   Tune the numbers if you add longer texts. */
-.panel-slot { min-height: 600px; display: flow-root; }
+/* The area under the days always keeps the height of the tallest place panel, so opening and
+   closing panels never moves the rest of the page. app.js measures the height automatically
+   (fitPanelSlot); the numbers below are only used until that has run. */
+.panel-slot { min-height: 600px; display: flow-root; position: relative; }
 @media (max-width: 899px) { .panel-slot { min-height: 650px; } }
 @media (max-width: 620px) { .panel-slot { min-height: 890px; } }
-@media (max-width: 360px) { .panel-slot { min-height: 960px; } }
 
 /* place panel: photo and map side by side (stacked on narrow screens) */
 .panel.place h3 { margin-bottom: 14px; }
 .place-media { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-bottom: 8px; }
-.place-media img, .place-media iframe { display: block; width: 100%; height: 240px; border: 0; border-radius: 12px; object-fit: cover; background: #efeae2; }
+.place-media img, .place-media iframe, .place-media .ph { display: block; width: 100%; height: 240px; border: 0; border-radius: 12px; object-fit: cover; background: #efeae2; }
 .panel h4 { margin: 16px 0 4px; font-size: 15px; color: var(--muted); }
-.place-link { display: inline-block; margin-top: 16px; font-weight: 600; color: var(--ink); }
+.event-photo { display: block; width: 100%; height: 200px; object-fit: cover; border-radius: 12px; margin: 4px 0 14px; background: #efeae2; }
+.place-list { list-style: none; margin: 0; padding: 0; }
+.place-list li { margin: 4px 0; }
+.place-links { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 16px; }
+.place-link { font-weight: 600; color: var(--ink); }
 /* shorter photo and map on phones (they are stacked there) */
-@media (max-width: 620px) { .place-media img, .place-media iframe { height: 180px; } }
+@media (max-width: 620px) { .place-media img, .place-media iframe, .place-media .ph { height: 180px; } .event-photo { height: 160px; } }
 
 footer { margin-top: 40px; text-align: center; color: var(--muted); font-size: 13px; }
