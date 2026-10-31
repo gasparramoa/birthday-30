@@ -25,17 +25,17 @@ const LOCKED = [];
 //   { name: "Maria", days: ["2027-04-21", "2027-04-25"], photo: "" },
 // Pictures at the top of the page. Use PNGs with a transparent background.
 //  me:      my photo, shown on the right next to the "30" (e.g. me holding the 30)
-//  friends: pictures on the left. alt = name shown on hover. bottom: true puts it in the lower row.
+//  friends: pictures on the left. alt = name shown on hover. bottom: true puts it in the lower row. size: 1 is normal, 1.4 = 40% bigger.
 // These are PLACEHOLDERS: put your files in images/hero/ and change the paths.
 const HERO = {
   me: { image: "images/hero/me.png", alt: "Gaspar" },
   // bottom: true = the picture has the legs cut off, so it stands on the bottom edge (second row)
   friends: [
-    { image: "images/hero/goku.png",       alt: "Goku" },
+    { image: "images/hero/goku.png",       alt: "Goku", size: 1.4 },
     { image: "images/hero/sonic.png",      alt: "Sonic" },
     { image: "images/hero/hornet.png",     alt: "Silksong" },
     { image: "images/hero/wargreymon.png", alt: "Wargreymon" },
-    { image: "images/hero/iron-giant.png", alt: "Iron Giant", bottom: true },
+    { image: "images/hero/iron-giant.png", alt: "Iron Giant", size: 0.85, bottom: true },
     { image: "images/hero/gaara.png",      alt: "Gaara",      bottom: true },
     { image: "images/hero/ashitaka.png",   alt: "Ashitaka",   bottom: true },
     { image: "images/hero/enid.png",       alt: "Enid",       bottom: true },

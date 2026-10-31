@@ -420,6 +420,7 @@ function renderHero() {
     img.src = p.image;
     img.alt = p.alt || "";
     if (p.alt) img.title = p.alt;
+    if (p.size) img.style.setProperty("--s", p.size);
     img.addEventListener("error", () => img.remove());   // missing file: just skip it
     box.appendChild(img);
   };
