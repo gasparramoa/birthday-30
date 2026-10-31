@@ -366,6 +366,7 @@ function fillDayPanel(panel, key, measure) {
     if (!measure) {
       pic.alt = ev.title[lang];
       pic.src = ev.photo;
+      if (ev.photoPos) pic.style.objectPosition = ev.photoPos;
       pic.addEventListener("error", () => pic.remove());   // missing file: no photo
     }
     panel.appendChild(pic);
@@ -393,9 +394,29 @@ function fillDayPanel(panel, key, measure) {
   }
 
   if (ev) {
+    appendGallery(panel, ev.gallery, measure);         // optional row of pictures (see the 26 April event)
     appendBlocks(panel, sectionBlocks(ev.sections));   // optional extra blocks (see the 25 April event)
     appendLinks(panel, ev.links);                      // optional link buttons
   }
+}
+
+// Row of pictures that scrolls sideways (always one row, so the panel stays the same height)
+function appendGallery(panel, gallery, measure) {
+  if (!gallery || !gallery.length) return;
+  const row = document.createElement("div");
+  row.className = "gallery";
+  gallery.forEach((g) => {
+    const img = document.createElement(measure ? "div" : "img");
+    if (measure) { img.className = "gp"; row.appendChild(img); return; }   // placeholder, only to measure the height
+    img.src = g.image;
+    img.alt = g.alt || "";
+    if (g.alt) img.title = g.alt;
+    img.loading = "lazy";
+    if (g.pos) img.style.objectPosition = g.pos;
+    img.addEventListener("error", () => img.remove());
+    row.appendChild(img);
+  });
+  panel.appendChild(row);
 }
 
 function renderPanel() {

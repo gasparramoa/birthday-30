@@ -217,6 +217,8 @@ const EVENTS = {
       pt: "O dia de anos a sério! Vem celebrar os 30 comigo.",
       de: "Der echte Geburtstag! Feiert mit mir den runden 30sten.",
     },
+    photo: "images/home3.jpeg",
+    photoPos: "50% 55%",
     sections: [
       {
         title: { en: "The plan for the day", pt: "O plano para o dia", de: "Der Plan für den Tag" },
@@ -260,7 +262,8 @@ const EVENTS = {
       pt: "Uma segunda festa, para que todos possam vir a pelo menos uma. Não podes no dia 21? Vem no dia 25!",
       de: "Eine zweite Feier, damit alle bei mindestens einer dabei sein können. Am 21. keine Zeit? Dann komm am 25.!",
     },
-    // photo: "images/aveiro-marathon.jpg",   // optional: your marathon picture with the boats, shown at the top
+    photo: "images/marathon.jpeg",
+    photoPos: "50% 82%",   // which part of the picture stays visible: "50% 0%" = top, "50% 100%" = bottom
     // More blocks, shown in this order. Each has a title and either "text" or a list "items".
     sections: [
       {
@@ -296,6 +299,38 @@ const EVENTS = {
       pt: "As festas acabaram, mas Portugal tem muito mais para oferecer. Aproveita os próximos dias para visitar outros sítios do país!",
       de: "Die Feiern sind vorbei, aber Portugal hat noch viel mehr zu bieten. Nutzt die nächsten Tage, um andere Orte im Land zu entdecken!",
     },
+    // Row of pictures you can scroll sideways. image = file, alt = short description (shown on hover),
+    // pos = optional, which part stays visible when the picture is cropped (like photoPos).
+    gallery: [
+      { image: "images/covilha/waterfall.jpg", alt: "Waterfall" },
+      { image: "images/covilha/group.jpg",     alt: "Canyoning with friends" },
+      { image: "images/covilha/sunset.jpg",    alt: "Sunset over the rooftops" },
+      { image: "images/covilha/pools.jpg",     alt: "Natural river pools" },
+      { image: "images/covilha/trail.jpg",     alt: "Mountain trail", pos: "50% 70%" },
+      { image: "images/covilha/river.jpg",     alt: "River" },
+      { image: "images/covilha/concert.jpg",   alt: "Concert at the castle" },
+      { image: "images/covilha/night.jpg",     alt: "Night out in the old streets", pos: "50% 60%" },
+      { image: "images/covilha/fest.jpg",      alt: "Winter festival", pos: "50% 70%" },
+      { image: "images/covilha/dog.jpg",       alt: "A walk in the countryside", pos: "50% 65%" },
+    ],
+    sections: [
+      {
+        title: { en: "What to expect in Covilhã", pt: "O que esperar da Covilhã", de: "Was euch in Covilhã erwartet" },
+        items: {
+          en: ["🏞️ Nature all around: rivers, natural pools and waterfalls", "🥾 Walks and trails in the mountains", "🧗 Adventure, like canyoning, if you feel like it", "🌇 Great views and sunsets over the rooftops", "🎶 Concerts, events and nights out in the old streets"],
+          pt: ["🏞️ Natureza por todo o lado: rios, piscinas naturais e cascatas", "🥾 Passeios e trilhos na montanha", "🧗 Aventura, como canyoning, se te apetecer", "🌇 Vistas lindas e pores do sol sobre os telhados", "🎶 Concertos, eventos e noites nas ruas antigas"],
+          de: ["🏞️ Natur rundherum: Flüsse, Naturpools und Wasserfälle", "🥾 Wanderungen und Wege in den Bergen", "🧗 Abenteuer, zum Beispiel Canyoning, wenn ihr Lust habt", "🌇 Tolle Aussichten und Sonnenuntergänge über den Dächern", "🎶 Konzerte, Veranstaltungen und Abende in den alten Gassen"],
+        },
+      },
+      {
+        title: { en: "Good to know", pt: "Bom saber", de: "Gut zu wissen" },
+        text: {
+          en: "Bring comfortable shoes for walking and a warm layer for the evenings, the mountains can be cool even in spring.",
+          pt: "Tragam sapatos confortáveis para caminhar e um casaco para as noites, nas montanhas pode estar fresco mesmo na primavera.",
+          de: "Bringt bequeme Schuhe zum Wandern und etwas Warmes für die Abende mit, in den Bergen kann es auch im Frühling kühl sein.",
+        },
+      },
+    ],
   },
   "2027-04-30": {
     type: "travel",
