@@ -372,6 +372,24 @@ function fillDayPanel(panel, key, measure) {
     panel.appendChild(pic);
   }
 
+  // optional: several pictures side by side ("photos" in the 25 April event)
+  if (ev && ev.photos && ev.photos.length) {
+    const row = document.createElement("div");
+    row.className = "event-photos";
+    ev.photos.forEach((p) => {
+      const pic = document.createElement(measure ? "div" : "img");
+      pic.className = "event-photo";
+      if (!measure) {
+        pic.alt = ev.title[lang];
+        pic.src = p.image;
+        if (p.pos) pic.style.objectPosition = p.pos;
+        pic.addEventListener("error", () => pic.remove());
+      }
+      row.appendChild(pic);
+    });
+    panel.appendChild(row);
+  }
+
   if (ev && (ev.when || ev.where)) {
     const dl = document.createElement("dl");
     if (ev.when) {

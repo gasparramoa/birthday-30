@@ -217,8 +217,10 @@ const EVENTS = {
       pt: "O dia de anos a sério! Vem celebrar os 30 comigo.",
       de: "Der echte Geburtstag! Feiert mit mir den runden 30sten.",
     },
-    photo: "images/home3.jpeg",
-    photoPos: "50% 55%",
+    photos: [
+      { image: "images/home3.jpeg", pos: "50% 55%" },
+      { image: "images/home4.jpeg", pos: "50% 35%" },
+    ],
     sections: [
       {
         title: { en: "The plan for the day", pt: "O plano para o dia", de: "Der Plan für den Tag" },
@@ -262,8 +264,12 @@ const EVENTS = {
       pt: "Uma segunda festa, para que todos possam vir a pelo menos uma. Não podes no dia 21? Vem no dia 25!",
       de: "Eine zweite Feier, damit alle bei mindestens einer dabei sein können. Am 21. keine Zeit? Dann komm am 25.!",
     },
-    photo: "images/marathon.jpeg",
-    photoPos: "50% 82%",   // which part of the picture stays visible: "50% 0%" = top, "50% 100%" = bottom
+    // Two pictures side by side. pos = which part stays visible when cropped: "50% 0%" = top, "50% 100%" = bottom.
+    // (For a single picture you can use  photo: "images/x.jpg",  photoPos: "50% 50%",  instead.)
+    photos: [
+      { image: "images/Aveiro1.jpeg", pos: "50% 85%" },
+      { image: "images/Aveiro2.jpeg", pos: "50% 58%" },
+    ],
     // More blocks, shown in this order. Each has a title and either "text" or a list "items".
     sections: [
       {
