@@ -23,6 +23,24 @@ const LOCKED = [];
 //  photo: optional picture, e.g. "images/maria.jpg" (without it the first letter of the name is shown)
 // Copy a line, change it, and add it to the list. Example:
 //   { name: "Maria", days: ["2027-04-21", "2027-04-25"], photo: "" },
+// Pictures at the top of the page. Use PNGs with a transparent background.
+//  me:      my photo, shown on the right next to the "30" (e.g. me holding the 30)
+//  friends: pictures on the left, in this order (any number; 8 fit nicely). alt = name shown on hover.
+// These are PLACEHOLDERS: put your files in images/hero/ and change the paths.
+const HERO = {
+  me: { image: "images/hero/me.png", alt: "Gaspar" },
+  friends: [
+    { image: "images/hero/friend-1.svg", alt: "Goku" },
+    { image: "images/hero/friend-2.svg", alt: "Enid" },
+    { image: "images/hero/friend-3.svg", alt: "Iron Giant" },
+    { image: "images/hero/friend-4.svg", alt: "Silksong" },
+    { image: "images/hero/friend-5.svg", alt: "Sonic" },
+    { image: "images/hero/friend-6.svg", alt: "Princess Mononoke" },
+    { image: "images/hero/friend-7.svg", alt: "Wargreymon" },
+    { image: "images/hero/friend-8.svg", alt: "Gaara" },
+  ],
+};
+
 const GUESTS = [
 ];
 

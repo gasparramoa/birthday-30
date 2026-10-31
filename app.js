@@ -409,6 +409,24 @@ function renderPanel() {
   fillDayPanel(panel, selected);
 }
 
+// Hero pictures: friends/characters on the left, me on the right (HERO in content.js)
+function renderHero() {
+  const left = $("heroLeft"), right = $("heroRight");
+  left.innerHTML = "";
+  right.innerHTML = "";
+  const add = (box, p) => {
+    if (!p || !p.image) return;
+    const img = document.createElement("img");
+    img.src = p.image;
+    img.alt = p.alt || "";
+    if (p.alt) img.title = p.alt;
+    img.addEventListener("error", () => img.remove());   // missing file: just skip it
+    box.appendChild(img);
+  };
+  (HERO.friends || []).forEach((p) => add(left, p));
+  add(right, HERO.me);
+}
+
 // Confirmed guests: one card per person in GUESTS (content.js)
 function renderGuests() {
   const t = I18N[lang];
@@ -453,7 +471,7 @@ function renderGuests() {
   }
 }
 
-function renderAll() { renderStatic(); renderDays(); renderPanel(); renderGuests(); fitPanelSlot(); }
+function renderAll() { renderStatic(); renderDays(); renderPanel(); renderGuests(); renderHero(); fitPanelSlot(); }
 
 document.querySelectorAll("#lang button").forEach((b) =>
   b.addEventListener("click", () => {

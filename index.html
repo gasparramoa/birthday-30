@@ -43,10 +43,15 @@
 
   <!-- Empty boxes: app.js fills them in -->
   <header class="hero">
-    <p class="big">30</p>
-    <h1 id="heroTitle"></h1>
-    <p class="date" id="heroDate"></p>
-    <span class="countdown" id="countdown"></span>
+    <!-- Pictures: left = friends/characters, right = me (list in content.js, HERO) -->
+    <div class="hero-side hero-left" id="heroLeft"></div>
+    <div class="hero-center">
+      <p class="big">30</p>
+      <h1 id="heroTitle"></h1>
+      <p class="date" id="heroDate"></p>
+      <span class="countdown" id="countdown"></span>
+    </div>
+    <div class="hero-side hero-right" id="heroRight"></div>
   </header>
 
   <!-- Important notice (text in content.js, I18N "notice"; empty = hidden) -->
