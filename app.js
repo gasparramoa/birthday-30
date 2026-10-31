@@ -423,7 +423,11 @@ function renderHero() {
     img.addEventListener("error", () => img.remove());   // missing file: just skip it
     box.appendChild(img);
   };
-  (HERO.friends || []).forEach((p) => add(left, p));
+  // two rows: full-body pictures on top, pictures with the legs cut off stand on the bottom edge
+  const top = document.createElement("div"), bottom = document.createElement("div");
+  top.className = "hero-row"; bottom.className = "hero-row";
+  left.append(top, bottom);
+  (HERO.friends || []).forEach((p) => add(p.bottom ? bottom : top, p));
   add(right, HERO.me);
 }
 

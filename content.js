@@ -25,19 +25,20 @@ const LOCKED = [];
 //   { name: "Maria", days: ["2027-04-21", "2027-04-25"], photo: "" },
 // Pictures at the top of the page. Use PNGs with a transparent background.
 //  me:      my photo, shown on the right next to the "30" (e.g. me holding the 30)
-//  friends: pictures on the left, in this order (any number; 8 fit nicely). alt = name shown on hover.
+//  friends: pictures on the left. alt = name shown on hover. bottom: true puts it in the lower row.
 // These are PLACEHOLDERS: put your files in images/hero/ and change the paths.
 const HERO = {
   me: { image: "images/hero/me.png", alt: "Gaspar" },
+  // bottom: true = the picture has the legs cut off, so it stands on the bottom edge (second row)
   friends: [
-    { image: "images/hero/friend-1.svg", alt: "Goku" },
-    { image: "images/hero/friend-2.svg", alt: "Enid" },
-    { image: "images/hero/friend-3.svg", alt: "Iron Giant" },
-    { image: "images/hero/friend-4.svg", alt: "Silksong" },
-    { image: "images/hero/friend-5.svg", alt: "Sonic" },
-    { image: "images/hero/friend-6.svg", alt: "Princess Mononoke" },
-    { image: "images/hero/friend-7.svg", alt: "Wargreymon" },
-    { image: "images/hero/friend-8.svg", alt: "Gaara" },
+    { image: "images/hero/goku.png",       alt: "Goku" },
+    { image: "images/hero/sonic.png",      alt: "Sonic" },
+    { image: "images/hero/hornet.png",     alt: "Silksong" },
+    { image: "images/hero/wargreymon.png", alt: "Wargreymon" },
+    { image: "images/hero/iron-giant.png", alt: "Iron Giant", bottom: true },
+    { image: "images/hero/gaara.png",      alt: "Gaara",      bottom: true },
+    { image: "images/hero/ashitaka.png",   alt: "Ashitaka",   bottom: true },
+    { image: "images/hero/enid.png",       alt: "Enid",       bottom: true },
   ],
 };
 
